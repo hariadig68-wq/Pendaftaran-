@@ -121,8 +121,9 @@ text-align:center;
 
 .payment-box img{
 width:100%;
-border-radius:20px;
-border:2px solid #22c55e;
+max-width:420px;
+border-radius:25px;
+border:3px solid #22c55e;
 }
 
 .upload{
@@ -180,6 +181,7 @@ background:#16a34a;
 color:white;
 text-align:center;
 font-weight:600;
+animation:fade .5s ease;
 }
 
 .footer{
@@ -252,11 +254,12 @@ color:#4b5563;
 <textarea rows="3"></textarea>
 </div>
 
-<!-- DIGITAL MARKETING QRIS -->
+<!-- QRIS -->
 <div class="payment-box">
 <img src="qris.jpg" alt="Digital Marketing">
 </div>
 
+<!-- Upload -->
 <div class="form-group">
 
 <label>Upload Bukti Pembayaran</label>
@@ -271,13 +274,21 @@ color:#4b5563;
 
 </div>
 
-<button type="submit">
-DAFTAR SEKARANG
+<!-- BUTTON -->
+<button type="submit" id="submitBtn">
+
+<span id="btnText">
+💳 BAYAR SEKARANG
+</span>
+
+<span id="loading" style="display:none;">
+⏳ Memproses Pembayaran...
+</span>
+
 </button>
 
-<div class="success" id="success">
-✅ Pendaftaran Berhasil
-</div>
+<!-- SUCCESS -->
+<div class="success" id="success"></div>
 
 </form>
 
@@ -321,8 +332,43 @@ document.getElementById('form')
 
 e.preventDefault();
 
+const btnText = document.getElementById('btnText');
+const loading = document.getElementById('loading');
+const button = document.getElementById('submitBtn');
+
+button.disabled = true;
+
+btnText.style.display = 'none';
+loading.style.display = 'inline';
+
+setTimeout(() => {
+
+loading.style.display = 'none';
+
+btnText.innerHTML = '✅ PEMBAYARAN SUKSES';
+btnText.style.display = 'inline';
+
+button.style.background =
+'linear-gradient(90deg,#16a34a,#15803d)';
+
+document.getElementById('success').innerHTML = `
+✅ Pembayaran berhasil diproses
+<br><br>
+Terima kasih telah mendaftar di
+<b>PKB RUNFEST 2026</b>
+`;
+
 document.getElementById('success')
 .style.display='block';
+
+preview.innerHTML='';
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+},2500);
 
 });
 
